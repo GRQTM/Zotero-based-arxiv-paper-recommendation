@@ -1,54 +1,83 @@
-# arxiv_ph_rcmd
+# Zotero-Based arXiv Paper Recommendation
 
-## Quick Start (for Codex users)
-1. Clone the repository and enter the folder
-   - `cd /path/to/arxiv_ph_rcmd`
-2. Run
-   - `./start`
+This project recommends 5 recent `astro-ph` papers based on your profile.
+It is designed so that you can run it with one command.
 
-Default behavior:
-- If `context/zotero_recommendation_profile.md` does not exist, it is auto-initialized from `templates/zotero_recommendation_profile.sample.md`.
-- This means recommendations can run even without a Zotero API key.
+## What You Need
+- Codex Desktop or Codex CLI installed and logged in
+- `python3`
+- macOS/Linux terminal
 
-## Run Commands
-- `./start` (recommendation only, using existing/template profile)
-- `./start -r` (refresh Zotero-based profile, then run recommendation)
-- `npm start`
-- or `bash ./start.sh`
+## Fastest Start (No Git Required)
+1. Open the GitHub repository page.
+2. Click `Code` -> `Download ZIP`.
+3. Unzip it.
+4. Open Terminal in that folder.
+5. Run:
 
-## Workflow
-1. `./start`:
-   - Uses `context/zotero_recommendation_profile.md`
-   - Auto-creates it from template if missing
-   - Fetches arXiv astro-ph papers from the last 2 days (including subsections)
-   - Prints top-5 recommendation message directly to terminal
-2. `./start -r`:
-   - Fetches Zotero library metadata/abstracts via Zotero API
-   - Rebuilds research profile (recommendation criteria) via Codex prompt
-   - Fetches arXiv astro-ph papers from the last 2 days (including subsections)
-   - Prints top-5 recommendation message directly to terminal
+```bash
+./start
+```
 
-## Key Files
-- `scripts/fetch_zotero_library.py`
-- `scripts/fetch_arxiv_astro_ph.py`
-- `prompts/01_build_zotero_profile.prompt.md`
-- `prompts/02_recommend_astro_ph_last2days.prompt.md`
-- `templates/zotero_recommendation_profile.sample.md`
-- `context/zotero_recommendation_profile.md`
-- `data/arxiv_astro_ph_last2days_summary.md`
-- The shareable message is printed directly in terminal output.
+If no personal profile exists yet, the script auto-initializes a default profile and still works.
 
-## Codex Binary Path
-- Default:
-  - `/Applications/Codex.app/Contents/Resources/codex`
-- If not found, the script auto-detects `codex` from system PATH.
-- Manual override:
+## Git Start (If You Use Git)
+```bash
+git clone https://github.com/GRQTM/Zotero-based-arxiv-paper-recommendation.git
+cd Zotero-based-arxiv-paper-recommendation
+./start
+```
+
+## Two Run Modes
+- `./start`
+  - Recommendation only
+  - Uses existing profile, or auto-creates one from template
+- `./start -r`
+  - Refreshes profile from your Zotero library, then runs recommendation
+  - Requires Zotero API key
+
+## Personalized Mode (Optional)
+If you want recommendations based on your own Zotero library:
+
+1. Create a file named `.zotero_api_key` in the project root.
+2. Put your Zotero API key in that file.
+3. Run:
+
+```bash
+./start -r
+```
+
+Optional:
+- Add `.zotero_user_id` file (or set `ZOTERO_USER_ID`) to skip key lookup API call.
+
+## Typical Daily Usage
+1. First time personalized setup: `./start -r`
+2. Later runs: `./start`
+
+## Command Reference
+- `./start`: recommend from last 2 days of arXiv astro-ph
+- `./start -r`: rebuild profile from Zotero + recommend
+- `npm start`: same as `./start`
+- `bash ./start.sh`: same as `./start`
+
+## Troubleshooting
+- `codex binary not found`
+  - Install Codex app/CLI, or run with explicit path:
   - `CODEX_BIN=/custom/path/to/codex ./start`
+- `permission denied` on start scripts
+  - `chmod +x start start.sh`
+- `python3: command not found`
+  - Install Python 3 and retry
 
-## API Keys
-- Zotero API key is required only for `./start -r`.
-- By default, the script reads `.zotero_api_key`.
-- Or set `ZOTERO_API_KEY` as an environment variable.
-- `start.sh` auto-applies `600` permission to `.zotero_api_key`.
-- For safety, keys are passed via environment variable only (not CLI arguments).
-- Optional: set `.zotero_user_id` or `ZOTERO_USER_ID` to skip key lookup API call.
+## Security Notes
+- API keys are read from environment variables or local key files only.
+- Keys are not passed as CLI arguments.
+- `.zotero_api_key` and `.zotero_user_id` are git-ignored by default.
+
+## Main Files
+- `start.sh`: orchestrates the full pipeline
+- `scripts/fetch_zotero_library.py`: fetches Zotero metadata
+- `scripts/fetch_arxiv_astro_ph.py`: fetches recent arXiv astro-ph papers
+- `prompts/01_build_zotero_profile.prompt.md`: profile generation prompt
+- `prompts/02_recommend_astro_ph_last2days.prompt.md`: recommendation prompt
+- `templates/zotero_recommendation_profile.sample.md`: fallback profile template
