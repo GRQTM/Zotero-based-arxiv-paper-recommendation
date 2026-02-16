@@ -20,28 +20,29 @@ It is designed so that you can run it with one command.
 5. Run:
 
 ```bash
-./start
+./start -r
 ```
 
-If no personal profile exists yet, the script auto-initializes a default profile and still works.
+This repository does not include a default recommendation profile.
+Run `./start -r` first to generate your own profile.
 
 ## Git Start (If You Use Git)
 ```bash
 git clone https://github.com/GRQTM/zotero-based-arxiv-daily-recommendation.git
 cd zotero-based-arxiv-daily-recommendation
-./start
+./start -r
 ```
 
 ## Two Run Modes
 - `./start`
   - Recommendation only
-  - Uses existing profile, or auto-creates one from template
+  - Uses existing profile only
 - `./start -r`
   - Refreshes profile from your Zotero library, then runs recommendation
   - Requires Zotero API key
 
-## Personalized Mode (Optional)
-If you want recommendations based on your own Zotero library:
+## First-Time Setup (Required)
+Before first recommendation, generate your profile from your Zotero library:
 
 1. Create your key file from the example:
 
@@ -110,4 +111,3 @@ This value is applied to both Codex steps:
 - `scripts/fetch_arxiv_astro_ph.py`: fetches recent arXiv astro-ph papers
 - `prompts/01_build_zotero_profile.prompt.md`: profile generation prompt
 - `prompts/02_recommend_astro_ph_last2days.prompt.md`: recommendation prompt
-- `templates/zotero_recommendation_profile.sample.md`: fallback profile template

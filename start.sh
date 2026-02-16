@@ -16,13 +16,12 @@ USER_ID="${ZOTERO_USER_ID:-}"
 KEY_FILE="${ROOT_DIR}/.zotero_api_key"
 USER_ID_FILE="${ROOT_DIR}/.zotero_user_id"
 PROFILE_FILE="${ROOT_DIR}/context/zotero_recommendation_profile.md"
-PROFILE_TEMPLATE_FILE="${ROOT_DIR}/templates/zotero_recommendation_profile.sample.md"
 MODEL_REASONING_EFFORT="${MODEL_REASONING_EFFORT:-high}"
 
 usage() {
   cat <<'EOF'
 Usage:
-  ./start       # Run recommendation only using existing/template profile
+  ./start       # Run recommendation only using existing profile
   ./start -r    # Refresh Zotero-based profile, then run recommendation
 EOF
 }
@@ -113,14 +112,9 @@ EOF
     | tee "${ROOT_DIR}/logs/profile_run.log"
 else
   if [[ ! -f "${PROFILE_FILE}" ]]; then
-    if [[ -f "${PROFILE_TEMPLATE_FILE}" ]]; then
-      cp "${PROFILE_TEMPLATE_FILE}" "${PROFILE_FILE}"
-      echo "Initialized profile from template: ${PROFILE_FILE}"
-    else
-      echo "Error: ${PROFILE_FILE} does not exist."
-      echo "Run ./start -r once to build the Zotero-based recommendation profile."
-      exit 1
-    fi
+    echo "Error: ${PROFILE_FILE} does not exist."
+    echo "No recommendation profile found. Please run ./start -r first to generate it."
+    exit 1
   fi
   echo "Using existing Zotero profile: ${PROFILE_FILE}"
 fi
