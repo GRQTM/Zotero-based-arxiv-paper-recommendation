@@ -1,0 +1,9 @@
+{
+  "name": "arxiv-ph-rcmd",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "start": "bash ./start.sh",
+    "start:daily": "bash ./start.sh"
+  }
+}

@@ -1,0 +1,6 @@
+.zotero_api_key
+.zotero_user_id
+data/
+context/
+outputs/
+logs/
