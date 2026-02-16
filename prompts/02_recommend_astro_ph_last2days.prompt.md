@@ -9,7 +9,7 @@ Hard requirements:
 1. Process every paper entry in `data/arxiv_astro_ph_last2days.json` before ranking.
 2. Use the scoring criteria and keyword rules from `context/zotero_recommendation_profile.md`.
 3. Include all astro-ph subsections already present in the dataset (do not narrow the scope).
-4. Write the response in Korean.
+4. Write the response in English.
 
 Selection constraints:
 - Pick 5 papers only.
@@ -17,33 +17,33 @@ Selection constraints:
 - Prefer papers that are both relevant and actionable for the user's ongoing work.
 
 For each selected paper, include:
-- 제목
-- 저자
-- arXiv ID / 링크
-- 3~5문장 요약
-- 추천 이유 (사용자 연구와의 연결고리)
-- 적합도 점수 (0~100)
+- Title
+- Authors
+- arXiv ID / Link
+- 3-5 sentence summary
+- Recommendation reason (connection to the user's research profile)
+- Fit score (0-100)
 
 Also include:
-- `스캔한 전체 논문 수`
-- `최종 추천 5편 평균 적합도`
-- `아쉽게 제외한 후보 3편` (제외 이유 1줄씩)
+- `Total papers scanned`
+- `Average fit score of the final top 5`
+- `3 near-miss candidates` (one-line exclusion reason each)
 
 Output:
-- Write the full result directly to stdout (terminal output) in Korean.
+- Write the full result directly to stdout (terminal output) in English.
 - Do not write or modify any files.
 - Use this exact final section title:
-  - `## 전송용 추천 메시지`
+  - `## Shareable Recommendation Message`
 
 Message format for the final section:
 - short greeting
-- top 5 list (for each paper, include all fields below in Korean):
-  - 제목
-  - 저자 (최대 3명만 표기, 나머지는 "외 N명")
-  - 링크
-  - 내용 요약 (2~3문장)
-  - 추천 이유 (1~2문장)
+- top 5 list (for each paper, include all fields below in English):
+  - Title
+  - Authors (show up to 3 names, then use "et al." for remaining)
+  - Link
+  - Summary (2-3 sentences)
+  - Why recommended (1-2 sentences)
 - closing line with next scan suggestion
 
 After finishing:
-- Print a short Korean completion summary.
+- Print a short English completion summary.

@@ -21,8 +21,8 @@ PROFILE_TEMPLATE_FILE="${ROOT_DIR}/templates/zotero_recommendation_profile.sampl
 usage() {
   cat <<'EOF'
 Usage:
-  ./start       # 기존 Zotero 기준 파일을 사용해서 최근 2일 astro-ph 추천만 실행
-  ./start -r    # Zotero 기반 추천 기준 파일 갱신 후 최근 2일 astro-ph 추천 실행
+  ./start       # Run recommendation only using existing/template profile
+  ./start -r    # Refresh Zotero-based profile, then run recommendation
 EOF
 }
 
